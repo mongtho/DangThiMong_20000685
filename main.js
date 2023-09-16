@@ -65,3 +65,189 @@ if (markBMI2 > JohnBMI2) {
 } else {
     console.log("Data 2 - Mark and john have the same BMI");
 }
+// Coding Challenge #3
+// There are two gymnastics teams, Dolphins and Koalas. They compete against each
+// other 3 times. The winner with the highest average score wins a trophy!
+// Your tasks:
+// 1. Calculate the average score for each team, using the test data below
+// 2. Compare the team's average scores to determine the winner of the competition,
+// and print it to the console. Don't forget that there can be a draw, so test for that
+// as well (draw means they have the same average score)
+// 3. Bonus 1: Include a requirement for a minimum score of 100. With this rule, a
+// team only wins if it has a higher score than the other team, and the same time a
+// score of at least 100 points. Hint: Use a logical operator to test for minimum
+// score, as well as multiple else-if blocks 
+// 4. Bonus 2: Minimum score also applies to a draw! So a draw only happens when
+// both teams have the same score and both have a score greater or equal 100
+// points. Otherwise, no team wins the trophy
+// Test data:
+// § Data 1: Dolphins score 96, 108 and 89. Koalas score 88, 91 and 110
+// § Data Bonus 1: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 123
+// § Data Bonus 2: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 106
+// Function to calculate the average score
+function calculateAverage(scores) {
+    const sum = scores.reduce((acc, score) => acc + score, 0);
+    return sum / scores.length;
+  }
+  
+  // Function to determine the winner based on average scores and minimum score requirement
+  function determineWinner(dolphinsScores, koalasScores, minimumScore) {
+    const dolphinsAverage = calculateAverage(dolphinsScores);
+    const koalasAverage = calculateAverage(koalasScores);
+  
+    if (dolphinsAverage >= minimumScore && dolphinsAverage > koalasAverage) {
+      console.log("Dolphins win!");
+    } else if (koalasAverage >= minimumScore && koalasAverage > dolphinsAverage) {
+      console.log("Koalas win!");
+    } else if (dolphinsAverage >= minimumScore && koalasAverage >= minimumScore && dolphinsAverage === koalasAverage) {
+      console.log("It's a draw!");
+    } else {
+      console.log("No team wins the trophy.");
+    }
+  }
+  
+  // Test Data 1
+  const dolphinsScores1 = [96, 108, 89];
+  const koalasScores1 = [88, 91, 110];
+  const minimumScore1 = 100;
+  determineWinner(dolphinsScores1, koalasScores1, minimumScore1);
+  
+  // Test Data Bonus 1
+  const dolphinsScores2 = [97, 112, 101];
+  const koalasScores2 = [109, 95, 123];
+  const minimumScore2 = 100;
+  determineWinner(dolphinsScores2, koalasScores2, minimumScore2);
+  
+  // Test Data Bonus 2
+  const dolphinsScores3 = [97, 112, 101];
+  const koalasScores3 = [109, 95, 106];
+  const minimumScore3 = 100;
+  determineWinner(dolphinsScores3, koalasScores3, minimumScore3);
+//   Coding Challenge #4
+// Steven wants to build a very simple tip calculator for whenever he goes eating in a
+// restaurant. In his country, it's usual to tip 15% if the bill value is between 50 and
+// 300. If the value is different, the tip is 20%.
+// Your tasks:
+// 1. Calculate the tip, depending on the bill value. Create a variable called 'tip' for
+// this. It's not allowed to use an if/else statement  (If it's easier for you, you can
+// start with an if/else statement, and then try to convert it to a ternary
+// operator!)
+// 2. Print a string to the console containing the bill value, the tip, and the final value
+// (bill + tip). Example: “The bill was 275, the tip was 41.25, and the total value
+// 316.25”
+// Test data:
+// § Data 1: Test for bill values 275, 40 and 430
+// Hints:
+// § To calculate 20% of a value, simply multiply it by 20/100 = 0.2
+// § Value X is between 50 and 300, if it's >= 50 && <= 300
+// Test data
+const billValues = [275, 40, 430];
+
+// Calculate the tip using a ternary operator
+const tips = billValues.map(bill => (bill >= 50 && bill <= 300) ? bill * 0.15 : bill * 0.2);
+
+// Calculate the total bill including the tip
+const totalValues = billValues.map((bill, index) => bill + tips[index]);
+
+// Print the results
+totalValues.forEach((total, index) => {
+  const tip = tips[index];
+  const bill = billValues[index];
+  console.log(`The bill was ${bill}, the tip was ${tip}, and the total value ${total}`);
+});
+// Coding Challenge #5
+// Back to the two gymnastics teams, the Dolphins and the Koalas! There is a new
+// gymnastics discipline, which works differently.
+// Each team competes 3 times, and then the average of the 3 scores is calculated (so
+// one average score per team).
+// A team only wins if it has at least double the average score of the other team.
+// Otherwise, no team wins!
+// Your tasks:
+// 1. Create an arrow function 'calcAverage' to calculate the average of 3 scores
+// 2. Use the function to calculate the average for both teams
+// 3. Create a function 'checkWinner' that takes the average score of each team
+// as parameters ('avgDolhins' and 'avgKoalas'), and then logs the winner
+// to the console, together with the victory points, according to the rule above.
+// Example: "Koalas win (30 vs. 13)"
+// 4. Use the 'checkWinner' function to determine the winner for both Data 1 and
+// Data 2
+// 5. Ignore draws this time
+// Test data:
+// § Data 1: Dolphins score 44, 23 and 71. Koalas score 65, 54 and 49
+// § Data 2: Dolphins score 85, 54 and 41. Koalas score 23, 34 and 27
+// Create an arrow function to calculate the average of 3 scores
+const calcAverage = (score1, score2, score3) => (score1 + score2 + score3) / 3;
+
+// Create a function to check the winner and log the result
+function checkWinner(avgDolphins, avgKoalas) {
+  if (avgDolphins >= 2 * avgKoalas) {
+    console.log(`Dolphins win (${avgDolphins.toFixed(2)} vs. ${avgKoalas.toFixed(2)})`);
+  } else if (avgKoalas >= 2 * avgDolphins) {
+    console.log(`Koalas win (${avgKoalas.toFixed(2)} vs. ${avgDolphins.toFixed(2)})`);
+  } else {
+    console.log("No team wins!");
+  }
+}
+
+// Test Data 1
+const dolphinsAverage1 = calcAverage(44, 23, 71);
+const koalasAverage1 = calcAverage(65, 54, 49);
+checkWinner(dolphinsAverage1, koalasAverage1);
+
+// Test Data 2
+const dolphinsAverage2 = calcAverage(85, 54, 41);
+const koalasAverage2 = calcAverage(23, 34, 27);
+checkWinner(dolphinsAverage2, koalasAverage2);
+
+// Coding Challenge #7
+// Let's go back to Mark and John comparing their BMIs! This time, let's use objects to
+// implement the calculations! Remember: BMI = mass / height ** 2 = mass
+// / (height * height) (mass in kg and height in meter)
+// Your tasks:
+// 1. For each of them, create an object with properties for their full name, mass, and
+// height (Mark Miller and John Smith)
+// 2. Create a 'calcBMI' method on each object to calculate the BMI (the same
+// method on both objects). Store the BMI value to a property, and also return it
+// from the method
+// 3. Log to the console who has the higher BMI, together with the full name and the
+// respective BMI. Example: "John's BMI (28.3) is higher than Mark's (23.9)!"
+// Test data: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95 m
+// tall.
+// Create objects for Mark and John
+const mark = {
+    fullName: 'Mark Miller',
+    mass: 78,
+    height: 1.69,
+    // Create a method to calculate and return the BMI
+    calcBMI: function () {
+      this.bmi = this.mass / (this.height ** 2);
+      return this.bmi;
+    },
+  };
+  
+  const john = {
+    fullName: 'John Smith',
+    mass: 92,
+    height: 1.95,
+    // Create a method to calculate and return the BMI
+    calcBMI: function () {
+      this.bmi = this.mass / (this.height ** 2);
+      return this.bmi;
+    },
+  };
+  
+  // Calculate the BMIs
+  mark.calcBMI();
+  john.calcBMI();
+  
+  
+  if (mark.bmi > john.bmi) {
+    console.log(`${mark.fullName}'s BMI (${mark.bmi.toFixed(1)}) is higher than ${john.fullName}'s (${john.bmi.toFixed(1)})!`);
+  } else if (john.bmi > mark.bmi) {
+    console.log(`${john.fullName}'s BMI (${john.bmi.toFixed(1)}) is higher than ${mark.fullName}'s (${mark.bmi.toFixed(1)})!`);
+  } else {
+    console.log(`${mark.fullName} and ${john.fullName} have the same BMI (${mark.bmi.toFixed(1)})!`);
+  }
+
+
+  
